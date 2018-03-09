@@ -36,13 +36,6 @@ class TTTClient {
     /**
      * This character is prepended to every message that is sent.
      */
-    private static final char MESSAGE = '0';
-
-    /**
-     * This character is sent to the connected program when the user quits.
-     */
-    private static final char CLOSE = '1';
-
 
 
     public static void main(String[] args) {
@@ -122,7 +115,7 @@ class TTTClient {
         /* Exchange messages with the other end of the connection until one side or
            the other closes the connection.  This client program sends the first message.
            After that,  messages alternate strictly back and forth. */
-
+        /*
         try {
             userInput = new Scanner(System.in);
             System.out.println("NOTE: Enter 'quit' to end the program.\n");
@@ -165,7 +158,7 @@ class TTTClient {
             System.out.println(e.toString());
             System.exit(1);
         }
-
+        */
     }  // end main()
 
 

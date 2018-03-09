@@ -95,6 +95,9 @@ public class CLChatServer {
                 throw new Exception("Connected program is not a CLChat!");
             }
             System.out.println("Connected.  Waiting for the first message.");
+            System.out.println(connection.getChannel());
+            System.out.println(connection.getLocalAddress());
+            System.out.println(connection.getInetAddress());
         }
         catch (Exception e) {
             System.out.println("An error occurred while opening connection.");

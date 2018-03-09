@@ -7,19 +7,18 @@ import java.util.Vector;
 
 import static java.lang.Thread.sleep;
 
-class TTTServer {
+class TTTServer  {
 
     private static final int DEFAULT_PORT = 1728;
     private static final String HANDSHAKE = "Admiral";
-    private static final char MESSAGE = '0';
-    private static final char CLOSE = '1';
+    private static final char SEND = '0', RECIEVE = '1';
 
     private static final Vector<TTTSocket> users = new Vector<>();
 
     public static void main(String[] args) {
 
         int port;   // The port on which the server listens.
-
+/*
         BufferedReader incoming;  // Stream for receiving data from client.
         PrintWriter outgoing;     // Stream for sending data to client.
         String messageOut;        // A message to be sent to the client.
@@ -67,16 +66,16 @@ class TTTServer {
                         throw new Exception("Connected program is not CLChat!");
                     } else {
                         System.out.println("Client connected.");
+                        //String name = clientSocket.promptName();
+                        users.add(clientSocket);
                     }
                 } catch (Exception e) {
                     System.err.println("Accept failed: " + e.getMessage());
                 }
             }
-        };
-
+        };/*
         Runnable stillThere = () -> {
             while (true) {
-                /*
                 Runnable timer = () -> {
                     try {
                         sleep(10000);
@@ -86,8 +85,7 @@ class TTTServer {
                 };
                 Thread timerThread = new Thread(timer, "timer");
                 while (timerThread.isAlive()) {
-
-                }*/
+                }
                 for (Iterator<TTTSocket> iterator = users.iterator(); iterator.hasNext();) {
                     TTTSocket ts = iterator.next();
                     try {
@@ -106,9 +104,35 @@ class TTTServer {
 
 
             }
-        };
+        };*/
+        (new Thread(clientFinder, "ClientFinder")).start();
+
+
+
 
     }  // end main()
+
+    private class Reader implements Runnable {
+        private TTTSocket client;
+        public Reader(TTTSocket c) {
+            client = c;
+        }
+
+        @Override
+        public void run() {
+            while (users.contains(client)) {
+                try {
+                    String line = client.getReader().readLine();
+                } catch (Exception e) {
+                    System.err.println("Issue reading line, assuming connection ded");
+                    users.remove(client);
+                    //do whatever
+                    return;
+                }
+
+            }
+        }
+    };
 
 
 } //end class TTTServer

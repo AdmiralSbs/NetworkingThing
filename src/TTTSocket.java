@@ -5,7 +5,8 @@ class TTTSocket extends Socket {
 
     private BufferedReader br = new BufferedReader(new InputStreamReader(getInputStream()));
     private PrintWriter bw = new PrintWriter(getOutputStream());
-    private TTTSocket server = null;
+    private TTTSocket serverSocket = null;
+    //private TTTServer serverClass = null;
     private TTTSocket connectedUser = null;
 
     public TTTSocket(String host, int port) throws IOException {
@@ -20,8 +21,16 @@ class TTTSocket extends Socket {
         return bw;
     }
 
-    public TTTSocket getServer() {
-        return server;
+    public void setServerSocket(TTTSocket sS) {
+        serverSocket = sS;
+    }
+
+    //public void setServerClass(TTTServer sS) {
+    //    serverClass = sS;
+    //}
+
+    public TTTSocket getServerSocket() {
+        return serverSocket;
     }
 
     public TTTSocket getConnectedUser() {
